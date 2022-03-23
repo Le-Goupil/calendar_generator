@@ -6,3 +6,7 @@ Première version d'un générateur de calendrier en JSON.
 
 - Executer le programme avec des options en ligne de commandes (generer sur plusieurs années, modifier le nom de fichier de l'output ...)
 - Rendre le code propre (éviter les répétitions, modifier les noms de variables)
+
+## Comment l'éxécuter ?
+
+> php calendar.php
