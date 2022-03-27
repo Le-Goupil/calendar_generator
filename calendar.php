@@ -1,148 +1,44 @@
 <?php
 $year = 2022;
-$fullMonth = ['janvier', 'mars', 'mai', 'juillet', 'aout', 'octobre', 'decembre'];
-$month = ['janvier' => [], 'fevrier' => [], 'mars' => [], 'avril' => [], 'mai' => [], 'juin' => [], 'juillet' => [], 'aout' => [], 'septembre' => [], 'octobre' => [], 'novembre' => [], 'decembre' => []];
-$days = ['lundi' => [], 'mardi' => [], 'mercredi' => [], 'jeudi' => [], 'vendredi' => [], 'samedi' => [], 'dimanche' =>  []];
+$monthList = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'];
+$daysArray = ['lundi' => [], 'mardi' => [], 'mercredi' => [], 'jeudi' => [], 'vendredi' => [], 'samedi' => [], 'dimanche' => []];
+$startDay = 5;
+$startMonth = 0;
+$countYears = 0;
+$container = [];
 
-function daysInMonth($month, $days){
-    foreach($month as $key => $value){
-        $month[$key] = $days;
+function dataStructure($year, $countYears, $monthList, $daysArray, $container){
+    array_push($container, [$year => []]);
+    for ($i = 0; $i < count($monthList); $i++) { 
+        array_push($container[$countYears][$year], ['mois' => $monthList[$i], 'jours' => $daysArray]);
     }
-    return $month;
+    $countYears++;
+    $year++;
+    if($year != 2030){
+        $container += dataStructure($year, $countYears, $monthList, $daysArray, $container);
+    }
+    return $container;
 }
 
-$calendar = daysInMonth($month, $days);
+$calendar = dataStructure($year, $countYears, $monthList, $daysArray, $container);
 
-function dataInCalendar($year, $calendar, $days, $fullMonth){
-    $compteurJour = 5;
-    foreach ($calendar as $key => $value) {
-        if(in_array($key, $fullMonth)){
-            for ($i=0; $i < 31 ; $i++) {
-                switch($compteurJour){
-                    case 0:
-                        array_push($calendar[$key]['lundi'], $i +1);
-                        break;
-                    case 1:
-                        array_push($calendar[$key]['mardi'], $i +1);
-                        break;
-                    case 2:
-                        array_push($calendar[$key]['mercredi'], $i +1);
-                        break;
-                    case 3:
-                        array_push($calendar[$key]['jeudi'], $i +1);
-                        break;
-                    case 4:
-                        array_push($calendar[$key]['vendredi'], $i +1);
-                        break;
-                    case 5:
-                        array_push($calendar[$key]['samedi'], $i +1);
-                        break;
-                    case 6:
-                        array_push($calendar[$key]['dimanche'], $i +1);
-                        break; 
-                    }
-                $compteurJour++;
-                if($compteurJour == 7){
-                    $compteurJour = 0;
-                }
-            }
-        } else if ($key == 'Février'){
-           if($year % 4 == 0){
-            for ($i=0; $i < 29 ; $i++) {
-                switch($compteurJour){
-                    case 0:
-                        array_push($calendar[$key]['lundi'], $i +1);
-                        break;
-                    case 1:
-                        array_push($calendar[$key]['mardi'], $i +1);
-                        break;
-                    case 2:
-                        array_push($calendar[$key]['mercredi'], $i +1);
-                        break;
-                    case 3:
-                        array_push($calendar[$key]['jeudi'], $i +1);
-                        break;
-                    case 4:
-                        array_push($calendar[$key]['vendredi'], $i +1);
-                        break;
-                    case 5:
-                        array_push($calendar[$key]['samedi'], $i +1);
-                        break;
-                    case 6:
-                        array_push($calendar[$key]['dimanche'], $i +1);
-                        break; 
-                    }
-                $compteurJour++;
-                if($compteurJour == 7){
-                    $compteurJour = 0;
-                }
-            }
-           } else {
-            for ($i=0; $i < 28 ; $i++) {
-                switch($compteurJour){
-                    case 0:
-                        array_push($calendar[$key]['lundi'], $i +1);
-                        break;
-                    case 1:
-                        array_push($calendar[$key]['mardi'], $i +1);
-                        break;
-                    case 2:
-                        array_push($calendar[$key]['mercredi'], $i +1);
-                        break;
-                    case 3:
-                        array_push($calendar[$key]['jeudi'], $i +1);
-                        break;
-                    case 4:
-                        array_push($calendar[$key]['vendredi'], $i +1);
-                        break;
-                    case 5:
-                        array_push($calendar[$key]['samedi'], $i +1);
-                        break;
-                    case 6:
-                        array_push($calendar[$key]['dimanche'], $i +1);
-                        break; 
-                    }
-                $compteurJour++;
-                if($compteurJour == 7){
-                    $compteurJour = 0;
-                }
-            }
-           }
-        } else {
-            for ($i=0; $i < 30 ; $i++) {
-                switch($compteurJour){
-                    case 0:
-                        array_push($calendar[$key]['lundi'], $i +1);
-                        break;
-                    case 1:
-                        array_push($calendar[$key]['mardi'], $i +1);
-                        break;
-                    case 2:
-                        array_push($calendar[$key]['mercredi'], $i +1);
-                        break;
-                    case 3:
-                        array_push($calendar[$key]['jeudi'], $i +1);
-                        break;
-                    case 4:
-                        array_push($calendar[$key]['vendredi'], $i +1);
-                        break;
-                    case 5:
-                        array_push($calendar[$key]['samedi'], $i +1);
-                        break;
-                    case 6:
-                        array_push($calendar[$key]['dimanche'], $i +1);
-                        break; 
-                    }
-                $compteurJour++;
-                if($compteurJour == 7){
-                    $compteurJour = 0;
+function daysInArray($calendar){
+    for ($i=0; $i < count($calendar); $i++) {
+        // Index of array
+        for ($j = 0; $j < count($calendar[$i]); $j++) {
+            // Array of the year 
+            for ($k=0; $k < count($calendar[$i][$j + 2022]); $k++) {
+                // Array of the month 
+                for ($l=0; $l < count($calendar[$i][$j + 2022][$k]); $l++) {
+                    // Array of the days 
+                    print_r($calendar[$i][$j + 2022][$k]['jours']);
                 }
             }
         }
     }
-    return $calendar;
+    // print_r($calendar[1][2023][1]['jours']['lundi']);
 }
+daysInArray($calendar);
 
-$calendar = dataInCalendar($year, $calendar, $days, $fullMonth);
-$calendar = json_encode($calendar);
-file_put_contents('calendar2022.json', $calendar);
+$final = json_encode($calendar);
+file_put_contents('tes.json', $final);
