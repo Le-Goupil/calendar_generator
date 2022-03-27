@@ -22,18 +22,17 @@ function dataStructure($year, $countYears, $monthList, $daysArray, $container){
 
 $calendar = dataStructure($year, $countYears, $monthList, $daysArray, $container);
 
-function forCalendar($calendar, $startingDayOfTheYear){
+function dateInDays($calendar, $startingDayOfTheYear){
     $fullMonth = ['janvier', 'mars', 'mai', 'juillet', 'aout', 'octobre', 'decembre'];
     $daysList =['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
     for ($i=0; $i < count($calendar); $i++) {
         for ($j=2022; $j <= 2032; $j++) { 
-            $bisextile = $j % 4 == 0 ? true : false;
+            $bissextile = $j % 4 == 0 ? true : false;
             if(isset($calendar[$i][$j])){
                 for ($k=0; $k < count($calendar[$i][$j]); $k++) {
                     switch ($e = $calendar[$i][$j][$k]['mois']) {
                         case in_array($e, $fullMonth):
                             for ($day=0; $day < 31; $day++) {
-                                // var_dump($day);
                                 array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
                                 $startingDayOfTheYear++;
                                 if($startingDayOfTheYear == 7){
@@ -42,9 +41,8 @@ function forCalendar($calendar, $startingDayOfTheYear){
                             }
                             break;
                         case $e == 'fevrier':
-                            if($bisextile){
+                            if($bissextile){
                                 for ($day=0; $day < 29; $day++) {
-                                    // var_dump($day);
                                     array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
                                     $startingDayOfTheYear++;
                                     if($startingDayOfTheYear == 7){
@@ -53,7 +51,6 @@ function forCalendar($calendar, $startingDayOfTheYear){
                                 }
                             } else {
                                 for ($day=0; $day < 28; $day++) {
-                                    // var_dump($day);
                                     array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
                                     $startingDayOfTheYear++;
                                     if($startingDayOfTheYear == 7){
@@ -64,7 +61,6 @@ function forCalendar($calendar, $startingDayOfTheYear){
                             break;
                         default: 
                             for ($day=0; $day < 30; $day++) {
-                                // var_dump($day);
                                 array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
                                 $startingDayOfTheYear++;
                                 if($startingDayOfTheYear == 7){
@@ -80,7 +76,7 @@ function forCalendar($calendar, $startingDayOfTheYear){
     return $calendar;
 }
 
-$calendar = forCalendar($calendar, $startingDayOfTheYear);
+$calendar = dateInDays($calendar, $startingDayOfTheYear);
 
 $final = json_encode($calendar);
 file_put_contents('calendar.json', $final);
