@@ -4,15 +4,15 @@ Deuxième version d'un générateur de calendrier en JSON.
 
 ## Amélioration par rapport à la v1
 
-- Génère un JSON plus lisible (propriété 'mois', 'jours', 'année')
-- Génère un calendrier sur plusieurs années
-- Prend en compte les années bissextile
+- [x] Génère un JSON plus lisible (propriété 'mois', 'jours', 'année')
+- [x] Génère un calendrier sur plusieurs années
+- [x] Prend en compte les années bissextile
 
 ## Amélioration à venir
 
-- Executer le programme avec des options en ligne de commandes (année de départ, année d'arrivé, définir le premier jour de l'année de départ ...)
-- Rendre le code propre (éviter les répétitions, noms de variables plus claire)
-- la fonction dateInDays peut être directement éxécuté dans la fonction dataStructure, mais pour un soucis facilité, à été découpé en 2 fonction.
+- [ ] Executer le programme avec des options en ligne de commandes (année de départ, année d'arrivé, définir le premier jour de l'année de départ ...)
+- [ ] Rendre le code propre (éviter les répétitions, noms de variables plus claire)
+- [ ] La fonction dateInDays peut être directement éxécuté dans la fonction dataStructure, mais pour un soucis facilité, à été découpé en 2 fonction.
 
 ## Comment l'éxécuter ?
 
