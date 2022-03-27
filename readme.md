@@ -24,5 +24,5 @@ Deuxième version d'un générateur de calendrier en JSON.
 - Définissez le premier jour de l'année séléctionnée dans la varible $startingDayOfTheYear (ligne 5) : 0 = lundi, 1 = mardi ... 6 = dimanche
 - La fonction dataStructure (ligne 10) génère le squelette du JSON. C'est une fonction récursive, donc veillez à bien gérer votre condition d'arret. Par défault, la récursive s'arrète au bout de 10 années après votre année de départ. ($countYears ligne 17)
 - Une fois que le squelette du calendrier est pret, dateInDays peuple le JSON avec les bonnes dates dans les bons jours.
-- Si vous avez décidé de démarrer la génération de calendrier sur un année différente que 2022, veuillez à modifier dans la fonction dateIndays pour que $j (ligne 29) corresponde bien à votre année de départ, et sa limite celle d'arrivé.
+- Si vous avez décidé de démarrer la génération de calendrier sur une année différente de 2022, veillez à modifier dans la fonction dateIndays (ligne 25) pour que $j (ligne 29) corresponde bien à votre année de départ, et sa limite, celle d'arrivé.
 - Il ne manque plus qu'à définir le nom de votre fichier (ligne 82). Veillez a garder l'extension .json sur le fichier généré.
