@@ -16,7 +16,7 @@ Deuxième version d'un générateur de calendrier en JSON.
 
 ## Comment l'éxécuter ?
 
-> php calendar.php
+php calendar.php
 
 ## Comment ça fonctionne ?
 
