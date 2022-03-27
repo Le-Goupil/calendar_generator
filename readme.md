@@ -18,7 +18,7 @@ Deuxième version d'un générateur de calendrier en JSON.
 
 > php calendar.php
 
-### Comment ça fonctionne ?
+## Comment ca marche ?
 
 - Veuillez définir l'année de départ de votre calendrier dans la variable $year (ligne 2)
 - Définissez le premier jour de l'année séléctionnée dans la varible $startingDayOfTheYear (ligne 5) : 0 = lundi, 1 = mardi ... 6 = dimanche
