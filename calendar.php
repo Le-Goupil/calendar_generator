@@ -2,7 +2,7 @@
 $year = 2022;
 $monthList = ['janvier', 'fevrier', 'mars', 'avril', 'mai', 'juin', 'juillet', 'aout', 'septembre', 'octobre', 'novembre', 'decembre'];
 $daysArray = ['lundi' => [], 'mardi' => [], 'mercredi' => [], 'jeudi' => [], 'vendredi' => [], 'samedi' => [], 'dimanche' => []];
-$startDay = 5;
+$startingDayOfTheYear = 5;
 $startMonth = 0;
 $countYears = 0;
 $container = [];
@@ -14,7 +14,7 @@ function dataStructure($year, $countYears, $monthList, $daysArray, $container){
     }
     $countYears++;
     $year++;
-    if($year != 2030){
+    if($countYears <= 10){
         $container += dataStructure($year, $countYears, $monthList, $daysArray, $container);
     }
     return $container;
@@ -22,23 +22,65 @@ function dataStructure($year, $countYears, $monthList, $daysArray, $container){
 
 $calendar = dataStructure($year, $countYears, $monthList, $daysArray, $container);
 
-function daysInArray($calendar){
+function forCalendar($calendar, $startingDayOfTheYear){
+    $fullMonth = ['janvier', 'mars', 'mai', 'juillet', 'aout', 'octobre', 'decembre'];
+    $daysList =['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
     for ($i=0; $i < count($calendar); $i++) {
-        // Index of array
-        for ($j = 0; $j < count($calendar[$i]); $j++) {
-            // Array of the year 
-            for ($k=0; $k < count($calendar[$i][$j + 2022]); $k++) {
-                // Array of the month 
-                for ($l=0; $l < count($calendar[$i][$j + 2022][$k]); $l++) {
-                    // Array of the days 
-                    print_r($calendar[$i][$j + 2022][$k]['jours']);
+        for ($j=2022; $j <= 2032; $j++) { 
+            $bisextile = $j % 4 == 0 ? true : false;
+            if(isset($calendar[$i][$j])){
+                for ($k=0; $k < count($calendar[$i][$j]); $k++) {
+                    switch ($e = $calendar[$i][$j][$k]['mois']) {
+                        case in_array($e, $fullMonth):
+                            for ($day=0; $day < 31; $day++) {
+                                // var_dump($day);
+                                array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
+                                $startingDayOfTheYear++;
+                                if($startingDayOfTheYear == 7){
+                                    $startingDayOfTheYear = 0;
+                                }
+                            }
+                            break;
+                        case $e == 'fevrier':
+                            if($bisextile){
+                                for ($day=0; $day < 29; $day++) {
+                                    // var_dump($day);
+                                    array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
+                                    $startingDayOfTheYear++;
+                                    if($startingDayOfTheYear == 7){
+                                        $startingDayOfTheYear = 0;
+                                    }
+                                }
+                            } else {
+                                for ($day=0; $day < 28; $day++) {
+                                    // var_dump($day);
+                                    array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
+                                    $startingDayOfTheYear++;
+                                    if($startingDayOfTheYear == 7){
+                                        $startingDayOfTheYear = 0;
+                                    }
+                                }
+                            }
+                            break;
+                        default: 
+                            for ($day=0; $day < 30; $day++) {
+                                // var_dump($day);
+                                array_push($calendar[$i][$j][$k]['jours'][$daysList[$startingDayOfTheYear]],$day + 1);
+                                $startingDayOfTheYear++;
+                                if($startingDayOfTheYear == 7){
+                                    $startingDayOfTheYear = 0;
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
     }
-    // print_r($calendar[1][2023][1]['jours']['lundi']);
+    return $calendar;
 }
-daysInArray($calendar);
+
+$calendar = forCalendar($calendar, $startingDayOfTheYear);
 
 $final = json_encode($calendar);
-file_put_contents('tes.json', $final);
+file_put_contents('calendar.json', $final);
